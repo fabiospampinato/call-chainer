@@ -44,15 +44,15 @@ const fn = ( methods: Methods, title: string ) => {
 
 // Finally you need to chain the two together to get a new, chained, function
 
-const fnChained = () => chainer ( Methods, fn );
+const fnChained = chainer ( Methods, fn );
 
 // Then you can call methods on the chained function just by retrieving them as properties
 
-fnChained ().always.skip ( 'My title' );
+fnChained.always.skip ( 'My title' );
 // => 'My Title'
 // => { always: true, skip: true, todo: false }
 
-fnChained ()( 'My title' );
+fnChained ( 'My title' );
 // => 'My Title'
 // => { always: false, skip: false, todo: false }
 ```

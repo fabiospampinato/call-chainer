@@ -5,7 +5,7 @@ import {Chained, ConstructorOf, FN} from './types';
 
 /* MAIN */
 
-const chainer = <Arguments extends any[], Return extends any, Methods extends {}> ( Methods: ConstructorOf<Methods>, fn: FN<[Methods, ...Arguments], Return> ): Chained<FN<Arguments, Return>, Methods> => {
+const chainerBase = <Arguments extends any[], Return extends any, Methods extends {}> ( Methods: ConstructorOf<Methods>, fn: FN<[Methods, ...Arguments], Return>, cloned: boolean ): Chained<FN<Arguments, Return>, Methods> => {
 
   const methods = new Methods ();
   const chain = ( ...args: Arguments ): Return => fn ( methods, ...args );
@@ -24,14 +24,25 @@ const chainer = <Arguments extends any[], Return extends any, Methods extends {}
 
     Object.defineProperty ( chain, name, {
       get: () => {
-        value.call ( methods );
-        return chain;
+        if ( cloned ) {
+          value.call ( methods );
+          return chain;
+        } else {
+          const clone = chainerBase ( Methods, fn, true );
+          return clone[name];
+        }
       }
     });
 
   }
 
   return chain as Chained<FN<Arguments, Return>, Methods>;
+
+};
+
+const chainer = <Arguments extends any[], Return extends any, Methods extends {}> ( Methods: ConstructorOf<Methods>, fn: FN<[Methods, ...Arguments], Return> ): Chained<FN<Arguments, Return>, Methods> => {
+
+  return chainerBase ( Methods, fn, false );
 
 };
 
