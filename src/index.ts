@@ -1,11 +1,11 @@
 
 /* IMPORT */
 
-import {Chained, ConstructorOf, FN} from './types';
+import type {Chained, ConstructorOf, FN} from './types';
 
 /* MAIN */
 
-const chainerBase = <Arguments extends any[], Return extends any, Methods extends {}> ( Methods: ConstructorOf<Methods>, fn: FN<[Methods, ...Arguments], Return>, cloned: boolean ): Chained<FN<Arguments, Return>, Methods> => {
+const chainerBase = <Arguments extends any[], Return extends any, Methods extends Record<string, any>> ( Methods: ConstructorOf<Methods>, fn: FN<[Methods, ...Arguments], Return>, cloned: boolean ): Chained<FN<Arguments, Return>, Methods> => {
 
   const methods = new Methods ();
   const chain = ( ...args: Arguments ): Return => fn ( methods, ...args );
@@ -40,7 +40,7 @@ const chainerBase = <Arguments extends any[], Return extends any, Methods extend
 
 };
 
-const chainer = <Arguments extends any[], Return extends any, Methods extends {}> ( Methods: ConstructorOf<Methods>, fn: FN<[Methods, ...Arguments], Return> ): Chained<FN<Arguments, Return>, Methods> => {
+const chainer = <Arguments extends any[], Return extends any, Methods extends Record<string, any>> ( Methods: ConstructorOf<Methods>, fn: FN<[Methods, ...Arguments], Return> ): Chained<FN<Arguments, Return>, Methods> => {
 
   return chainerBase ( Methods, fn, false );
 

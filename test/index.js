@@ -1,10 +1,10 @@
 
 /* IMPORT */
 
-import {describe} from 'ava-spec';
-import {default as chainer} from '../dist';
+import {describe} from 'fava';
+import chainer from '../dist/index.js';
 
-/* CALL CHAINER */
+/* MAIN */
 
 describe ( 'Call Chainer', it => {
 
@@ -34,15 +34,19 @@ describe ( 'Call Chainer', it => {
     });
 
     fn ( 'Title1' );
+
     t.deepEqual ( output, { title: 'Title1', flags: { always: false, skip: false, todo: false } } );
 
     fn.always ( 'Title2' );
+
     t.deepEqual ( output, { title: 'Title2', flags: { always: true, skip: false, todo: false } } );
 
     fn.always.todo.skip.skip.todo.always ( 'Title3' );
+
     t.deepEqual ( output, { title: 'Title3', flags: { always: true, skip: true, todo: true } } );
 
     fn.todo ( 'Title4' );
+
     t.deepEqual ( output, { title: 'Title4', flags: { always: false, skip: false, todo: true } } );
 
   });

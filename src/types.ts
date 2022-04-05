@@ -1,9 +1,13 @@
 
-/* TYPES */
+/* HELPERS */
+
+type ConditionalKeys<Base, Condition> = NonNullable<{ [Key in keyof Base]: Base[Key] extends Condition ? Key : never; }[keyof Base]>;
+
+type ConditionalPick<Base, Condition> = Pick<Base, ConditionalKeys<Base, Condition>>;
+
+/* MAIN */
 
 type Callback = () => any;
-
-type ConditionalPick<Base, Condition> = import ( 'type-fest' ).ConditionalPick<Base, Condition>;
 
 type ConstructorOf<T> = new () => T;
 
@@ -23,4 +27,4 @@ type Chained<T extends FN, U extends {}> = Chained10<T, U>; //TODO: Make this in
 
 /* EXPORT */
 
-export {Chained, ConstructorOf, FN};
+export type {Chained, ConstructorOf, FN};
