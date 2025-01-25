@@ -3,7 +3,7 @@
   "repository": "github:fabiospampinato/call-chainer",
   "description": "Combine a regular function and a class so that methods of the class become chainable properties of the function that get called automatically.",
   "license": "MIT",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "type": "module",
   "main": "dist/index.js",
   "exports": "./dist/index.js",
