@@ -5,7 +5,7 @@ Combine a regular function and a class so that methods of the class become chain
 ## Install
 
 ```sh
-npm install --save call-chainer
+npm install call-chainer
 ```
 
 ## Usage
